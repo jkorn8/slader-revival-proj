@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import '../App.css';
 
 export default function Textbook() {
     const textbook = {
@@ -17,6 +18,9 @@ export default function Textbook() {
             <div>
                 <img src={'https://picsum.photos/200/300'} alt={textbook.title}></img>
                 <h1>{textbook.title} - {textbookName}</h1>
+            </div>
+            <div>
+                
             </div>
             {/* Title here with textbook and title*/}
             {/* component to select an exercise here */}

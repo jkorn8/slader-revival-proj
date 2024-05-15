@@ -13,3 +13,23 @@
 .TextbookSearch {
   width: 80%;
 }
+
+.drawer {
+  display: grid;
+  overflow: hidden; 
+  font-size: 0.875rem;
+  line-height: 1.25rem; 
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms; 
+  transition-duration: 300ms; 
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+.visible {
+  opacity: 0;
+}
+
+.hidden {
+  opacity: 1;
+}
