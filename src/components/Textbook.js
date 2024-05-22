@@ -14,9 +14,11 @@ export default function Textbook() {
     const textbookName = searchParams.get('name');
 
     return (
-        <div>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
             <div>
                 <img src={'https://picsum.photos/200/300'} alt={textbook.title}></img>
+            </div>
+            <div>
                 <h1>{textbook.title} - {textbookName}</h1>
             </div>
             <div>

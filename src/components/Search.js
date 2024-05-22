@@ -1,20 +1,24 @@
 import { useState } from 'react';
-import '../App.css';
+import SearchIcon from '../icons/icons.js';
+import './Search.css';
 
-export default function Search({ onSearch }) {
-    const [ query, setQuery ] = useState('');
+export default function Search({ onSearch, onFocus = () => {}, startingValue = ''}) {
+    const [ query, setQuery ] = useState(startingValue);
 
     return (
-        <div className="TextbookSearch">
-            <input 
-                type='text' 
-                className='TextbookSearch' 
-                placeholder='Find your textbook' 
-                value={query}
-                onChange={(event) => {
-                    setQuery(event.target.value);
-                    onSearch(event.target.value);
-                }}/>
+        <div className='container'>
+            <div className='bar'>
+                <SearchIcon />
+                <input
+                    type='text' 
+                    placeholder='Find your textbook...' 
+                    value={query}
+                    onFocus={onFocus}
+                    onChange={(event) => {
+                        setQuery(event.target.value);
+                        onSearch(event.target.value);
+                    }}/>
+            </div>
         </div>
     );
 }

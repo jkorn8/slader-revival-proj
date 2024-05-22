@@ -1,0 +1,35 @@
+.container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100px;
+    width: 100%;
+    flex-grow: 1; 
+}
+
+.bar {
+    padding: 1rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.bar:focus-within {
+    outline: 2px solid #066cfa;
+}
+
+input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    height: 100%; 
+    font-size: 1.25rem;
+    margin-left: 0.5rem;
+}
+
+input:focus {
+    outline-width: 0;
+}

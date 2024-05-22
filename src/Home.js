@@ -1,7 +1,6 @@
 import Search from './components/Search';
-import './App.css';
+import SearchResults from './components/SearchResults';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const textbooks = [
     "Apple",
@@ -24,18 +23,9 @@ export default function Home() {
     };
 
     return (
-        <div>
-            <div className="TitleBar">
-                <span>Test</span>
-            </div>
+        <div style={{ margin: 'auto', display: 'flex', alignItems: 'center', flexDirection: 'column', width: '80%'}}>
             <Search onSearch={handleSearch}/>
-            <ul>
-                {searchResults.map((result, index) => (
-                    <li key={index}>
-                        <Link to={`/textbook?name=${result}`}>{result}</Link>
-                    </li>
-                ))}
-            </ul>
+            <SearchResults results={searchResults}/>
         </div>
     );
 }

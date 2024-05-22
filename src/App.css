@@ -1,17 +1,14 @@
-.App {
-  text-align: center;
-  justify-content: center;
-  align-items: center;
+.container {
+  height: 100vh;
+  width: 100vw;
 }
 
 .TitleBar {
-  width: 100%;
-  height: 100%;
-  background-color: blue;
-}
-
-.TextbookSearch {
-  width: 80%;
+  width: 100vw;
+  height: 3rem;
+  background-color: #066cfa;
+  display: flex;
+  align-items: center;
 }
 
 .drawer {
