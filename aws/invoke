@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Default values
+event="event"
+fast_flag=false
+
+# Function to display usage
+usage() {
+    echo "Usage: $0 <function_name> [event_filename] [--fast]"
+    exit 1
+}
+
+# Check if the user has provided a function to run, and if they have then set the function_name variable
+if [ -z "$1" ]; then
+    usage
+fi
+function_name="$1"
+shift
+
+# Parse remaining arguments
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        --fast) fast_flag=true ;;
+        *) event="$1" ;;
+    esac
+    shift
+done
+
+# Print some information about arguments used to invoke the lambda function
+echo ""
+echo -e "Invoking function: \"$function_name\""
+echo -e "Using event: \"$event\""
+echo "Fast flag: $fast_flag"
+echo "----------------------------------------"
+
+# skip-prepare-infra
+if $fast_flag; then
+    sam local invoke --hook-name terraform aws_lambda_function."$function_name" -e events/"$event".json --region us-west-1 --skip-pull-image
+else
+    sam local invoke --hook-name terraform aws_lambda_function."$function_name" -e events/"$event".json --region us-west-1
+fi
+
+echo ""

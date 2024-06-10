@@ -59,7 +59,7 @@ export const handler = async (event) => {
   const token = jsonwebtoken.sign(payload, process.env.SECRET_KEY, { expiresIn: '7d' });
   
   return response(200, JSON.stringify({
-    message: `User ${payload.username} is logged in`,
+    message: `Welcome ${payload.username}!`,
     token: token
   }));
 };
