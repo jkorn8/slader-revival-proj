@@ -1,0 +1,14 @@
+{
+    "body": {
+        "textbookId": "0",
+        "chapter": "1",
+        "section": "1",
+        "question": "2",
+        "solution": "My test solution"
+    },
+    "requestContext":{
+        "authorizer": {
+            "userId": "0"
+        }
+    }
+}

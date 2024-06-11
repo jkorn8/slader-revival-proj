@@ -18,24 +18,24 @@ resource "aws_dynamodb_table" "users" {
   }
 }
 
-resource "aws_dynamodb_table" "textbooks" {
-  name           = "srp-textbooks"
-  billing_mode   = "PROVISIONED"
-  hash_key       = "textbookId"
-  range_key      = "name"
-  read_capacity  = 1
-  write_capacity = 1
+# resource "aws_dynamodb_table" "textbooks" {
+#   name           = "srp-textbooks"
+#   billing_mode   = "PROVISIONED"
+#   hash_key       = "textbookId"
+#   range_key      = "name"
+#   read_capacity  = 1
+#   write_capacity = 1
 
-  attribute {
-    name = "textbookId"
-    type = "S"
-  }
+#   attribute {
+#     name = "textbookId"
+#     type = "S"
+#   }
 
-  attribute {
-    name = "name"
-    type = "S"
-  }
-}
+#   attribute {
+#     name = "name"
+#     type = "S"
+#   }
+# }
 
 resource "aws_dynamodb_table" "answers" {
   name           = "srp-answers"

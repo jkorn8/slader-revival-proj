@@ -93,3 +93,37 @@ resource "aws_lambda_function" "srp-get-answers" {
   source_code_hash = data.archive_file.srp-get-answers-archive.output_base64sha256
   runtime = "nodejs20.x"
 }
+
+# Post answer lambda function (protected)
+data "archive_file" "srp-post-answer-archive" {
+    type        = "zip"
+    source_file = "./lambdas/srp-post-answer/index.mjs"
+    output_path = "./outputs/srp-post-answer.zip"
+}
+
+resource "aws_lambda_function" "srp-post-answer" {
+  filename      = "./outputs/srp-post-answer.zip"
+  function_name = "srp-post-answer"
+  role          = aws_iam_role.lambda-dynamodb-role.arn
+  handler       = "index.handler"
+
+  source_code_hash = data.archive_file.srp-post-answer-archive.output_base64sha256
+  runtime = "nodejs20.x"
+}
+
+# Get textbooks lambda function (unprotected)
+data "archive_file" "srp-textbook-get-archive" {
+    type        = "zip"
+    source_dir  = "./lambdas/srp-textbook-get"
+    output_path = "./outputs/srp-textbook-get.zip"
+}
+
+resource "aws_lambda_function" "srp-textbook-get" {
+  filename      = "./outputs/srp-textbook-get.zip"
+  function_name = "srp-textbook-get"
+  role          = aws_iam_role.lambda-execution-role.arn
+  handler       = "index.handler"
+
+  source_code_hash = data.archive_file.srp-textbook-get-archive.output_base64sha256
+  runtime = "nodejs20.x"
+}

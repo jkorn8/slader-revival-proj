@@ -1,5 +1,5 @@
-import Search from './components/Search';
-import SearchResults from './components/SearchResults';
+import Search from '../components/Search';
+import SearchResults from '../components/SearchResults';
 import { useState } from 'react';
 
 const textbooks = [

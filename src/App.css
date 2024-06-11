@@ -1,11 +1,12 @@
 .container {
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 }
 
 .TitleBar {
   width: 100vw;
-  height: 3rem;
+  height: 8vh;
   background-color: #066cfa;
   display: flex;
   align-items: center;
