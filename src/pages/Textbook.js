@@ -1,13 +1,11 @@
 import { useLocation } from 'react-router-dom';
 import '../App.css';
+import textbooks from '../textbooks';
+import { Typography, Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export default function Textbook() {
-    const textbook = {
-        isbn: 1238150823750912,
-        title: "Advanced Calculus",
-        id: 0,
-        image: ''
-    }
+    const textbook = textbooks[0];
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -22,10 +20,19 @@ export default function Textbook() {
                 <h1>{textbook.title} - {textbookName}</h1>
             </div>
             <div>
-                
+                {textbook.chapters.map((chapter, index) => <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ArrowDropDownIcon />}
+                        aria-controls="panel2-content"
+                        id={`accordion${index}-header`}
+                    >
+                        <Typography>{chapter}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        {textbook.sections[index].map((section, index) => <Typography>{section}</Typography>)}
+                    </AccordionDetails>
+                </Accordion>)}
             </div>
-            {/* Title here with textbook and title*/}
-            {/* component to select an exercise here */}
         </div>
     );
 }

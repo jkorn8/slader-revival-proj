@@ -8,8 +8,8 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 export const handler = async (event) => {
   
-  //const body = JSON.parse(event.body);
-  const body = event.body;
+  const body = JSON.parse(event.body);
+  //const body = event.body;
 
   // Retrieves the id and password fields from the request body if they exist. Then checks if they are empty.
   const id = body?.id;
@@ -67,7 +67,13 @@ export const handler = async (event) => {
 const response = (statusCode, body) => {
   return {
     statusCode: statusCode,
-    body: body
+    headers: {
+      "Access-Control-Allow-Headers" : "Content-Type",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+      "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+    },
+    body: body,
   };
 };
 

@@ -45,3 +45,16 @@ resource "aws_iam_role" "lambda-execution-role" {
 }
 
 # Remember to add permissions for API Gateway lambda proxy integration
+resource "aws_lambda_permission" "srp-create-user-integration" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.srp-create-user.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.srp-api.execution_arn}/*/POST/users/create"
+}
+
+resource "aws_lambda_permission" "srp-login-integration" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.srp-login.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.srp-api.execution_arn}/*/POST/users/login"
+}
