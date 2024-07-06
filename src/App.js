@@ -6,6 +6,12 @@ import { Route, Routes, Navigate, Link} from 'react-router-dom';
 import Login from './pages/Login.js';
 import Signup from './pages/Signup.js';
 import { AuthProvider, useAuth } from './context/AuthContext.js';
+import AnswerCreate from './pages/AnswerCreate.js';
+
+// App Name Ideas: 
+// - MathPath
+// - MathWrath
+// - OutNumbered
 
 const App = () => {
   return (
@@ -18,6 +24,7 @@ const App = () => {
         <Route path="/signup" element={ <Signup/> }/>
         <Route path="/account" element={ <Protected/> }/>
         <Route path="/login" element={ <Login/> }/>
+        <Route path="/create" element={ <AnswerCreate/> }/>
         <Route element={<NotFound/>}  />
       </Routes>
     </AuthProvider>
