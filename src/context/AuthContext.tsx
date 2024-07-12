@@ -1,17 +1,27 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 const TOKEN_KEY = 'my-jwt';
 const API_URL = 'https://i7q4t70bv6.execute-api.us-west-1.amazonaws.com/dev/users';
-const AuthContext = createContext({});
+const AuthContext = createContext<AuthContextProps>({});
+
+interface AuthContextProps {
+	authState?: { token: string | null; authenticated: boolean | null };
+	onRegister?: (username: string, email: string, password: string) => Promise<any>;
+	onLogin?: (email: string, password: string) => Promise<any>;
+	onLogout?: () => Promise<any>;
+}
 
 export const useAuth = () => {
 	return useContext(AuthContext);
 };
 
-export const AuthProvider = ({ children }) => {
-	const [authState, setAuthState] = useState({
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+	const [authState, setAuthState] = useState<{
+		token: string | null;
+		authenticated: boolean | null;
+	}>({
 		token: null,
 		authenticated: null
 	});
@@ -30,10 +40,10 @@ export const AuthProvider = ({ children }) => {
 		loadToken();
 	}, []);
 
-	const register = async (username, email, password) => {
+	const register = async (username: string, email: string, password: string) => {
 		try {
 			console.log("Registering user: ", username, email, password)
-			const response = await axios.post(`${API_URL}/create`, {
+			const response: AxiosResponse = await axios.post(`${API_URL}/create`, {
 				"username": username,
 				"email": email,
 				"password": password
@@ -42,13 +52,13 @@ export const AuthProvider = ({ children }) => {
 			if (response.status === 200) {
 				return { success: true, status: 200 };
 			}
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			return { success: false, status: error.response.status };
 		}
 	};
 
-	const login = async (id, password) => {
+	const login = async (id: string, password: string) => {
 		try {
 			console.log(`Logging in user "${id}" with password "${password}"`)
 			const result = await axios.post(`${API_URL}/login`, { id: id, password: password });

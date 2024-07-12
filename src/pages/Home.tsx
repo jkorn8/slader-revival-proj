@@ -2,7 +2,7 @@ import Search from '../components/Search';
 import SearchResults from '../components/SearchResults';
 import { useState } from 'react';
 
-const textbooks = [
+const textbooks: string[] = [
     "Apple",
     "Banana",
     "Orange",
@@ -13,10 +13,10 @@ const textbooks = [
     "Mango",
   ];
 
-export default function Home() {
-    const [ searchResults, setSearchResults ] = useState([]);
+const Home = () => {
+    const [ searchResults, setSearchResults ] = useState<string[]>([]);
 
-    const handleSearch = (query) => {
+    const handleSearch = (query: string) => {
         setSearchResults(textbooks.filter(title => 
             title.toLowerCase().includes(query.toLowerCase())
         ));
@@ -29,3 +29,5 @@ export default function Home() {
         </div>
     );
 }
+
+export default Home;

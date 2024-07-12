@@ -1,15 +1,16 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Location } from 'react-router-dom';
 import '../App.css';
 import textbooks from '../textbooks';
+import Textbook from '../types/Textbook';
 import { Typography, Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-export default function Textbook() {
-    const textbook = textbooks[0];
+const TextbookPage: React.FC = () => {
+    const textbook: Textbook = textbooks[0];
 
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const textbookName = searchParams.get('name');
+    const location: Location = useLocation();
+    const searchParams: URLSearchParams = new URLSearchParams(location.search);
+    const textbookName: string | null = searchParams.get('name');
 
     return (
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
@@ -36,3 +37,5 @@ export default function Textbook() {
         </div>
     );
 }
+
+export default TextbookPage;

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import '../App.css';
 
-export default function ProblemSelect (){
-  const [accordionOpen, setAccordionOpen] = useState(false);
+const ProblemSelect: React.FC = () => {
+  const [accordionOpen, setAccordionOpen] = useState<boolean>(false);
 
   return (
     <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
@@ -18,3 +18,5 @@ export default function ProblemSelect (){
     </div>
   );
 };
+
+export default ProblemSelect;

@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import SearchIcon from '../icons/icons.js';
+import { SearchIcon } from '../icons/icons';
 import './Search.css';
 
-export default function Search({ onSearch, onFocus = () => {}, startingValue = ''}) {
+type SearchProps = {
+    onSearch: (query: string) => void;
+    onFocus?: () => void;
+    startingValue?: string;
+}
+
+const Search: React.FC<SearchProps> = ({ onSearch, onFocus = () => {}, startingValue = ''})  => {
     const [ query, setQuery ] = useState(startingValue);
 
     return (
@@ -22,3 +28,5 @@ export default function Search({ onSearch, onFocus = () => {}, startingValue = '
         </div>
     );
 }
+
+export default Search;

@@ -1,9 +1,12 @@
-const textbooks = [
+// TODO: Delete this file
+import Textbook from "./types/Textbook";
+
+const textbooks: Textbook[] = [
     {
-        "textbookId": "0",
-        "title": "Calculus",
-        "authors": "James Stewart",
-        "chapters": [
+        textbookId: "0",
+        title: "Calculus",
+        authors: "James Stewart",
+        chapters: [
          "1: Functions and Models",
          "2: Limits and Derivatives",
          "3: Differentiation Rules",
@@ -22,11 +25,11 @@ const textbooks = [
          "16: Vector Calculus",
          "17: Second-Order Differential Equations"
         ],
-        "ISBNs": [
+        ISBNs: [
          9781285740621,
          9781285740621
         ],
-        "sections": [
+        sections: [
          [
           "1.1: Four Ways to Represent a Function",
           "1.2: Mathematical Models- A Catalog of Essential Functions",

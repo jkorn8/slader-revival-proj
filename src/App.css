@@ -1,7 +1,6 @@
 .container {
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
 }
 
 .TitleBar {
@@ -22,12 +21,4 @@
   transition-duration: 300ms; 
   transition-duration: 300ms; 
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); 
-}
-
-.visible {
-  opacity: 0;
-}
-
-.hidden {
-  opacity: 1;
 }
