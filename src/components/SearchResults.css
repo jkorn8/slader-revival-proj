@@ -1,11 +1,12 @@
 .results-list {
-    width: 100%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 0px 8px #ddd;
     border-radius: 10px;
     max-height: 300px;
     overflow-y: auto;
+    margin-top: 2px;
   }
 
 .search-result {
@@ -13,5 +14,5 @@
 }
 
 .search-result:hover {
-    background-color: #efefef;
+    background-color: #e5e5e5;
 }

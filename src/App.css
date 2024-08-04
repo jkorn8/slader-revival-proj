@@ -1,12 +1,13 @@
 .container {
   height: 100vh;
   width: 100vw;
+  background-color: '#F8F8F8';
 }
 
 .TitleBar {
   width: 100vw;
   height: 8vh;
-  background-color: #066cfa;
+  background-color: #30C5FF;
   display: flex;
   align-items: center;
 }
@@ -21,4 +22,20 @@
   transition-duration: 300ms; 
   transition-duration: 300ms; 
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+.authButton {
+  background-color: #1013C5;
+  border-radius: 15px;
+  text-decoration: none;
+  padding: 12px;
+  margin-right: 24px;
+}
+
+.authButton:hover {
+  background-color: #1a1eff;
+}
+
+span {
+  font-family: 'Poppins', sans-serif;
 }

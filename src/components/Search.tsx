@@ -12,9 +12,11 @@ const Search: React.FC<SearchProps> = ({ onSearch, onFocus = () => {}, startingV
     const [ query, setQuery ] = useState(startingValue);
 
     return (
-        <div className='container'>
+        <div className='searchBarContainer'>
             <div className='bar'>
-                <SearchIcon />
+                <div className='searchBarIconContainer'>
+                    <SearchIcon />
+                </div>
                 <input
                     type='text' 
                     placeholder='Find your textbook...' 

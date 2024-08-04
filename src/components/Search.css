@@ -1,15 +1,18 @@
-.container {
-    justify-content: center;
-    align-items: center;
+.searchBarContainer {
+    justify-content: flex-start;
     display: flex;
-    height: 100px;
-    width: 100%;
-    flex-grow: 1; 
+    height: 80px;
+    width: 60%;
+    background-color: #E5E5E5;
+    border-radius: 20px;
+}
+
+.searchBarIconContainer {
+    margin: 22px;
 }
 
 .bar {
-    padding: 1rem;
-    border-radius: 0.75rem;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,7 +20,7 @@
 }
 
 .bar:focus-within {
-    outline: 2px solid #066cfa;
+    outline: 2px solid #1013C580;
 }
 
 input {
@@ -25,9 +28,16 @@ input {
     width: 100%;
     border: none;
     background-color: transparent;
-    height: 100%; 
-    font-size: 1.25rem;
-    margin-left: 0.5rem;
+    height: 100%;
+    color: #000000;
+    font-size: 28px;
+    font-family: 'Poppins', sans-serif;
+}
+
+input::placeholder{
+    color: #1013C580;
+    font-size: 28px;
+    font-family: 'Poppins', sans-serif;
 }
 
 input:focus {

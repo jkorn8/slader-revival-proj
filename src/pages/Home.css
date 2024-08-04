@@ -1,0 +1,40 @@
+.homePageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+.homePageTextContainer {
+    height: 44vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.homeSearchBarContainer {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    justify-content: flex-start;
+    height: 80px;
+    width: 100%;
+}
+
+.titleText {
+    height: 175px;
+    font-size: 96px;
+    color: #1013C5;
+    font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+}
+
+image::placeholder {
+    color: #1013C580;
+    font-size: 28px;
+    font-family: 'Poppins', sans-serif;
+}
