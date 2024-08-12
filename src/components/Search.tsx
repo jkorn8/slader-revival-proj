@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SearchIcon } from '../icons/icons';
 import './Search.css';
+import { useNavigate } from 'react-router-dom';
 
 type SearchProps = {
     onSearch: (query: string) => void;
@@ -9,7 +10,15 @@ type SearchProps = {
 }
 
 const Search: React.FC<SearchProps> = ({ onSearch, onFocus = () => {}, startingValue = ''})  => {
+    const navigate = useNavigate();
+
     const [ query, setQuery ] = useState(startingValue);
+    
+    const handleIsEnterPressed = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            navigate('/search?query=' + query);
+        }
+    };
 
     return (
         <div className='searchBarContainer'>
@@ -25,7 +34,8 @@ const Search: React.FC<SearchProps> = ({ onSearch, onFocus = () => {}, startingV
                     onChange={(event) => {
                         setQuery(event.target.value);
                         onSearch(event.target.value);
-                    }}/>
+                    }}
+                    onKeyDown={handleIsEnterPressed}/>
             </div>
         </div>
     );

@@ -12,7 +12,7 @@ const textbooks: string[] = [
     "Strawberry",
     "Watermelon",
     "Mango",
-  ];
+];
 
 const Home = () => {
     const [ searchResults, setSearchResults ] = useState<string[]>([]);

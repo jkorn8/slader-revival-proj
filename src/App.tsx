@@ -1,13 +1,14 @@
 import './App.css';
 import { Route, Routes, Navigate, Link, BrowserRouter} from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { Editor } from '@monaco-editor/react';
 
 import Home from './pages/Home';
 import Textbook from './pages/TextbookPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AnswerCreate from './pages/AnswerCreate';
+import SearchPage from './pages/SearchPage';
+import Solutions from './pages/Solutions';
 
 // App Name Ideas: 
 // - MathPath
@@ -24,11 +25,12 @@ const App = () => {
         <TitleBar />
         <Routes>
           <Route path="/" element={ <Home/> } />
-          {/* should have a search element here as well */}
-          <Route path="/textbook" element={ <Textbook/> } />
+          <Route path="/login" element={ <Login/> }/>
           <Route path="/signup" element={ <Signup/> }/>
           <Route path="/account" element={ <Protected/> }/>
-          <Route path="/login" element={ <Login/> }/>
+          <Route path="/search" element={ <SearchPage/> } />
+          <Route path="/textbook/:textbookId" element={ <Textbook/> } />
+          <Route path="/solutions/:textbookId/:chapter/:section/:problem" element={ <Solutions/> }/>
           <Route path="/create" element={ <AnswerCreate/> }/>
           <Route path="/*" element={<NotFound/>}  />
         </Routes>

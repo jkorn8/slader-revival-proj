@@ -10,7 +10,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
     <div className="results-list">
       {results.map((result, id) => {
         return (
-          <Link to={`/textbook?name=${result}`} style={{textDecoration: 'none', color: 'black', fontFamily: 'Poppins, sans-serif'}}>
+          <Link to={`/textbook/0`} style={{textDecoration: 'none', color: 'black', fontFamily: 'Poppins, sans-serif'}}>
             <div key={id} className="search-result">
               {result}
             </div>
