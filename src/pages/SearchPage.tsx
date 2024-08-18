@@ -2,7 +2,6 @@ import './SearchPage.css';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Location } from 'react-router-dom';
 import Search from '../components/Search';
-import SearchResults from '../components/SearchResults';
 import Textbook from '../types/Textbook';
 import { textbookSearch } from '../apiCalls/apiCalls';
 import { Loading } from '../components/Loading';

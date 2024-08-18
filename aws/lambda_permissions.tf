@@ -72,3 +72,17 @@ resource "aws_lambda_permission" "srp-textbook-search-integration" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.srp-api.execution_arn}/*/GET/textbook/search"
 }
+
+resource "aws_lambda_permission" "srp-answers-get-integration" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.srp-get-answers.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.srp-api.execution_arn}/*/GET/answers"
+}
+
+resource "aws_lambda_permission" "srp-answers-post-integration" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.srp-post-answer.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.srp-api.execution_arn}/*/POST/answers"
+}

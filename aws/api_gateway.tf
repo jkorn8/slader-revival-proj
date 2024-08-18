@@ -148,7 +148,39 @@ resource "aws_api_gateway_resource" "answers" {
   rest_api_id = aws_api_gateway_rest_api.srp-api.id
 }
 
+resource "aws_api_gateway_method" "answers-get" {
+  authorization    = "NONE"
+  http_method      = "GET"
+  resource_id      = aws_api_gateway_resource.answers.id
+  rest_api_id      = aws_api_gateway_rest_api.srp-api.id
+  api_key_required = true
+}
 
+resource "aws_api_gateway_method" "answers-post" {
+   authorization    = "CUSTOM"
+   authorizer_id    = aws_api_gateway_authorizer.srp-authorizer.id
+   http_method      = "POST"
+   resource_id      = aws_api_gateway_resource.answers.id
+   rest_api_id      = aws_api_gateway_rest_api.srp-api.id
+}
+
+resource "aws_api_gateway_integration" "answers-get-integration" {
+  rest_api_id             = aws_api_gateway_rest_api.srp-api.id
+  resource_id             = aws_api_gateway_resource.answers.id
+  http_method             = aws_api_gateway_method.answers-get.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.srp-get-answers.invoke_arn
+}
+
+resource "aws_api_gateway_integration" "answers-post-integration" {
+  rest_api_id             = aws_api_gateway_rest_api.srp-api.id
+  resource_id             = aws_api_gateway_resource.answers.id
+  http_method             = aws_api_gateway_method.answers-post.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.srp-post-answer.invoke_arn
+}
 
 
 # Create the stage for the Rest API

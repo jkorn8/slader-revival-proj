@@ -1,5 +1,4 @@
 import Search from '../components/Search';
-import SearchResults from '../components/SearchResults';
 import { useState } from 'react';
 import './Home.css'
 import { textbookSearch } from '../apiCalls/apiCalls';

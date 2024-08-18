@@ -1,7 +1,6 @@
 import './App.css';
 import { Route, Routes, Navigate, Link, BrowserRouter} from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { useState } from 'react';
 
 import Home from './pages/Home';
 import TextbookPage from './pages/TextbookPage';
