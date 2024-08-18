@@ -2,17 +2,19 @@ import { useState } from 'react';
 import { SearchIcon } from '../icons/icons';
 import './Search.css';
 import { useNavigate } from 'react-router-dom';
+import Textbook from '../types/Textbook';
 
 type SearchProps = {
     onSearch: (query: string) => void;
-    onFocus?: () => void;
+    results: Textbook[];
     startingValue?: string;
 }
 
-const Search: React.FC<SearchProps> = ({ onSearch, onFocus = () => {}, startingValue = ''})  => {
+const Search: React.FC<SearchProps> = ({ onSearch, startingValue = '', results})  => {
     const navigate = useNavigate();
 
     const [ query, setQuery ] = useState(startingValue);
+    const [ isFocused, setFocused ] = useState(false);
     
     const handleIsEnterPressed = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
@@ -21,6 +23,7 @@ const Search: React.FC<SearchProps> = ({ onSearch, onFocus = () => {}, startingV
     };
 
     return (
+        // TODO: Combine with SearchResults to make a single component SearchBar
         <div className='searchBarContainer'>
             <div className='bar'>
                 <div className='searchBarIconContainer'>
@@ -30,13 +33,29 @@ const Search: React.FC<SearchProps> = ({ onSearch, onFocus = () => {}, startingV
                     type='text' 
                     placeholder='Find your textbook...' 
                     value={query}
-                    onFocus={onFocus}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
                     onChange={(event) => {
                         setQuery(event.target.value);
                         onSearch(event.target.value);
                     }}
                     onKeyDown={handleIsEnterPressed}/>
             </div>
+            {true ? (
+                <div className="results-list">
+                    { results.map((result, i) => 
+                        <div 
+                            className="search-result" 
+                            key={i}
+                            onClick={() => navigate(`/textbook/${result.textbookId}`)} 
+                            style={{
+                                top: `calc(100% + ${i * 44}px)`, 
+                                borderRadius: `${ i === 0 ? '10px 10px' : '0 0'} ${ i === results.length - 1 ? '10px 10px' : '0 0'}`
+                            }}>
+                            {result.title}
+                        </div>
+                    )}
+                </div> ) : null}
         </div>
     );
 }

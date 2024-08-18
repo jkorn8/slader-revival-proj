@@ -1,9 +1,10 @@
 import './App.css';
 import { Route, Routes, Navigate, Link, BrowserRouter} from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { useState } from 'react';
 
 import Home from './pages/Home';
-import Textbook from './pages/TextbookPage';
+import TextbookPage from './pages/TextbookPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AnswerCreate from './pages/AnswerCreate';
@@ -29,7 +30,7 @@ const App = () => {
           <Route path="/signup" element={ <Signup/> }/>
           <Route path="/account" element={ <Protected/> }/>
           <Route path="/search" element={ <SearchPage/> } />
-          <Route path="/textbook/:textbookId" element={ <Textbook/> } />
+          <Route path="/textbook/:textbookId" element={ <TextbookPage /> } />
           <Route path="/solutions/:textbookId/:chapter/:section/:problem" element={ <Solutions/> }/>
           <Route path="/create" element={ <AnswerCreate/> }/>
           <Route path="/*" element={<NotFound/>}  />
@@ -46,9 +47,16 @@ const TitleBar = () => {
   return (
     <div className="TitleBar">
       <div style={{ width: '20%'}}>
-        <Link to="/" style={{textDecoration: 'none', color: 'black', marginLeft: '10px'}}>MathLib</Link>
+        <Link to="/" style={{textDecoration: 'none', color: '#1013C5', marginLeft: '20px', fontFamily: 'Poppins, sans-serif', fontSize: '32px' }}>MathLib</Link>
       </div>
-      <div style={{ width: '80%', display: 'flex', justifyContent: 'right'}}>
+      <div style={{ width: '60%', display: 'flex', justifyContent: 'flex-start'}}>
+        {/* <Search onSearch={(query: string) => {
+          textbookSearch(query).then((textbooks: Textbook[]) => {
+            setSearchResults(textbooks);
+          });
+        }} results={searchResults}/> */}
+      </div>
+      <div style={{ width: '20%', display: 'flex', justifyContent: 'right'}}>
         {authState && authState.authenticated ? 
         <Link to="/account" style={{marginRight: '10px', textDecoration: 'none', color: 'black' }}>
           <img src="userpfp.jpg" alt="Profile" style={{ height: '8vh', borderRadius: '90px' }}/>

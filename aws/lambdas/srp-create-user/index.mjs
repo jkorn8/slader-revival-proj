@@ -10,7 +10,7 @@ export const handler = async (event) => {
 
   // Parses the body of the request to retrieve the username, email, and password fields
   const { username, email, password } = JSON.parse(event.body);
-  //const { username, email, password } = event.body;
+  // const { username, email, password } = event.body;
 
   // The username, email, and password fields are required to create a user, so if they do not exist, the function errors
   if(!username || !email || !password) 
@@ -38,11 +38,10 @@ export const handler = async (event) => {
   console.log('Response from DynamoDB', responseUser);
   
   // Checks to make sure the scan was successful
-  if(responseUser.$metadata.httpStatusCode !== 200)
-    {
-      console.log(`DB Scan Failed with the following data: ${username, email}`);
-      return apiResponse(500, JSON.stringify('Error creating user'));
-    }
+  if(responseUser.$metadata.httpStatusCode !== 200) {
+    console.log(`DB Scan Failed with the following data: ${username, email}`);
+    return apiResponse(500, JSON.stringify('Error creating user'));
+  }
 
   // Makes sure the user does not already exist
   if(responseUser['Count'] !== 0)
@@ -58,6 +57,8 @@ export const handler = async (event) => {
       "username": username,
       "email": email,
       "password": hashedpassword,
+      "savedTextbooks": [],
+      "postedAnswers": [],
   };
   
   // Posts the user to the database

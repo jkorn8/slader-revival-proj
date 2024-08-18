@@ -50,6 +50,12 @@ export const handler = async (event) => {
 const apiResponse = (statusCode, message) => {
     return {
         statusCode: statusCode,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+        },
         body: JSON.stringify(message),
     };
 }

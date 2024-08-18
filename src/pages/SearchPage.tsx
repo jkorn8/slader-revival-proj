@@ -1,63 +1,65 @@
 import './SearchPage.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Location } from 'react-router-dom';
 import Search from '../components/Search';
 import SearchResults from '../components/SearchResults';
-
-const textbooks: string[] = [
-    "Apple",
-    "Banana",
-    "Orange",
-    "Pineapple",
-    "Grapes",
-    "Strawberry",
-    "Watermelon",
-    "Mango",
-];
+import Textbook from '../types/Textbook';
+import { textbookSearch } from '../apiCalls/apiCalls';
+import { Loading } from '../components/Loading';
 
 const SearchPage: React.FC = () => {
     const location: Location = useLocation();
     const navigate = useNavigate();
     const searchParams: URLSearchParams = new URLSearchParams(location.search);
     const urlSearch: string = searchParams.get('query') || '';
-    const urlSearchResults = textbooks.filter(title => 
-        title.toLowerCase().includes(urlSearch.toLowerCase())
-    );
 
-    const [ searchResults, setSearchResults ] = useState<string[]>(textbooks.filter(title => 
-        title.toLowerCase().includes(urlSearch.toLowerCase())
-    ));
-    const handleSearch = (query: string) => {
-        setSearchResults(textbooks.filter(title => 
-            title.toLowerCase().includes(query.toLowerCase())
-        ));
+    const [ searchResults, setSearchResults ] = useState<Textbook[]>([]);   // Results from the initial search 
+    const [ queryResults, setQueryResults ] = useState<Textbook[]>([]);     // Results for the search bar autocomplete
+    const [ loading, setLoading ] = useState<boolean>(false);
+
+    useEffect(() => {
+        setLoading(true);
+        textbookSearch(urlSearch).then((textbooks) => {
+            setSearchResults(textbooks);
+        }).catch((e) => {
+            console.log(e);
+            setSearchResults([]);
+        }).finally(() => setLoading(false));
+    }, [ urlSearch ]);
+
+    const handleQuery = (query: string) => {
+        textbookSearch(query).then((textbooks) => {
+            setQueryResults(textbooks);
+        });
     };
 
-    const handleTextbookSelect = (e: React.SyntheticEvent<Element, Event>) => {
-        navigate('/textbook/0');
-    }
+    const handleTextbookSelect = (id: string) => {
+        navigate(`/textbook/${id}`);
+    };
 
     return (
         <div>
             <div className='searchPageSearchBarContainer'>
-                <Search onSearch={(query: string) => handleSearch(query)} startingValue={urlSearch}/>
+                <Search onSearch={handleQuery} results={queryResults} startingValue={urlSearch}/>
             </div>
-            <div className='searchResultsContainer'>
-                <span className='resultsText'>{urlSearchResults.length} Results</span>
-                {urlSearchResults.map((searchResult, id) => {
-                    return (
-                        <div key={id} className="searchResult" onClick={handleTextbookSelect}>
-                            <img src={'https://picsum.photos/200/300'} alt={searchResult} height={120}></img>
-                            <div className="searchResultTextContainer">
-                                <span className='searchResultTextTitle'>{searchResult}</span>
-                                <span className='searchResultText'>ISBN: 1234567890-12</span>
-                                <span className='searchResultText'>Authors: JK Rowling</span>
-                                <span className='searchResultText'>6th Edition</span>
+            {loading ? <Loading/> : 
+                <div className='searchResultsContainer'>
+                    <span className='resultsText'>{searchResults.length} Results</span>
+                    {searchResults.map((searchResult, id) => {
+                        return (
+                            <div key={id} className="searchResult" onClick={() => handleTextbookSelect(searchResult.textbookId)}>
+                                <img src={'https://picsum.photos/200/300'} alt={searchResult.title} height={120}></img>
+                                <div className="searchResultTextContainer">
+                                    <span className='searchResultTextTitle'>{searchResult.title}</span>
+                                    <span className='searchResultText'>ISBN: {searchResult.ISBNs.join(', ')}</span>
+                                    <span className='searchResultText'>Authors: {searchResult.authors}</span>
+                                    <span className='searchResultText'>Edition: Coming Soon!</span>
+                                </div>
                             </div>
-                        </div>
-                    );
-                })}
-            </div>
+                        );
+                    })}
+                </div>
+            }
         </div>
     );
 };

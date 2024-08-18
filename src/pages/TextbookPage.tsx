@@ -1,31 +1,46 @@
 import './TextbookPage.css';
-import React, { useState } from 'react';
-import { useLocation, useNavigate, useParams, useSearchParams, Location } from 'react-router-dom';
-import textbooks from '../textbooks';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Textbook from '../types/Textbook';
-import { Typography, Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import { textbookGet } from '../apiCalls/apiCalls';
+import { Loading } from '../components/Loading';
 
 const TextbookPage: React.FC = () => {
     const navigate = useNavigate();
     const { textbookId } = useParams();
-    const location: Location = useLocation();
+    const [ textbook, setTextbook ] = useState<Textbook | undefined>();
+    const [ loading, setLoading ] = useState<boolean>(true);
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [selectedChapter, setSelectedChapter] = useState<number>(getChapterOnLoad(searchParams.get('chapter')));
     const [selectedSection, setSelectedSection ] = useState<number>(getSectionOnLoad(searchParams.get('section')));
 
-    if ((typeof textbookId === 'undefined') || !isValidInteger(textbookId) || !textbooks[parseInt(textbookId)]) 
-        return <TextbookNotFound />;
+    useEffect(() => {
+        setLoading(true);
+        textbookGet(parseInt(textbookId || '-1')).then((textbook) => {
+            setTextbook(textbook);
+            setLoading(false);
+        }).catch((e) => {
+            console.log(e);
+            setTextbook(undefined);
+            setLoading(false);
+        });
+    }, []);
+    if (loading)
+        return <Loading />;
 
-    const textbook: Textbook = textbooks[parseInt(textbookId)];
+    if (textbook === undefined) 
+        return <TextbookNotFound />;
 
     const handleChapterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         // Handle state change
-        setSelectedChapter(parseInt(event.target.value));
+        const newChapter: number = parseInt(event.target.value);
+        setSelectedChapter(newChapter);
         setSelectedSection(-1);
         // Handle URL search params change
-        searchParams.set('chapter', event.target.value);
+        searchParams.set('chapter', (newChapter + 1).toString());
         searchParams.delete('section');
         setSearchParams(searchParams);
     }
@@ -37,13 +52,13 @@ const TextbookPage: React.FC = () => {
         }
         else {
             setSelectedSection(index);
-            searchParams.set('section', index.toString());
+            searchParams.set('section', (index + 1).toString());
         }
         setSearchParams(searchParams);
     }
 
     const handleSolutionSelect = (event: React.MouseEvent<HTMLHeadingElement, MouseEvent>, problem: number) => {
-        navigate(`/solutions/${textbook.textbookId}/${selectedChapter}/${selectedSection}/${problem}`);
+        navigate(`/solutions/${textbook.textbookId}/${selectedChapter + 1}/${selectedSection + 1}/${problem}`);
     }
 
     return (
@@ -102,14 +117,14 @@ const getChapterOnLoad = (chapter: string | null) => {
     if (chapter === null) return 0;
     const parsed = parseInt(chapter, 10);
     if (isNaN(parsed) || !Number.isInteger(parsed)) return 0;
-    return parsed;
+    return parsed - 1;
 }
 
 const getSectionOnLoad = (section: string | null) => {
     if (section === null) return -1;
     const parsed = parseInt(section, 10);
     if (isNaN(parsed) || !Number.isInteger(parsed)) return -1;
-    return parsed;
+    return parsed - 1;
 }
 
 const TextbookNotFound: React.FC = () => {

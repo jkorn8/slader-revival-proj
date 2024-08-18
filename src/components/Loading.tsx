@@ -1,0 +1,7 @@
+export const Loading: React.FC = () => {
+    return (
+        <div>
+            <h1>Loading...</h1>
+        </div>
+    );
+}

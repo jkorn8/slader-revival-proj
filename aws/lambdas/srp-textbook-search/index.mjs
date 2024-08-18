@@ -1,16 +1,15 @@
 import textbooks from "./textbooks.mjs";
 
 export const handler = async (event) => {
-    if (!event.pathParameters || !event.pathParameters.textbookId) {
-        return apiResponse(400, { message: 'Missing textbookId parameter' });
+    if (!event.queryStringParameters || event.queryStringParameters.search === undefined) {
+        return apiResponse(400, { message: 'Missing search parameter' });
     }
 
-    const query = event.pathParameters.textbookId;
-    if (parseInt(query).isNaN || !textbooks[parseInt(query)]) {
-        return apiResponse(404, { message: 'Textbook not found'});
-    }
+    const query = event.queryStringParameters.search;
+    const response = textbooks.filter((textbook) => {
+        return textbook.title.toLowerCase().includes(query.toLowerCase());
+    })
 
-    const response = textbooks[parseInt(query)];
     return apiResponse(200, response);
 }
 

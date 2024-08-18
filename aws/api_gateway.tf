@@ -88,6 +88,69 @@ resource "aws_api_gateway_integration" "login-user-integration" {
   uri                     = aws_lambda_function.srp-login.invoke_arn
 }
 
+# Create the textbooks endpoint
+resource "aws_api_gateway_resource" "textbook" {
+  parent_id   = aws_api_gateway_rest_api.srp-api.root_resource_id
+  path_part   = "textbook"
+  rest_api_id = aws_api_gateway_rest_api.srp-api.id
+}
+
+resource "aws_api_gateway_resource" "textbook-get" {
+  parent_id   = aws_api_gateway_resource.textbook.id
+  path_part   = "{textbookId+}"
+  rest_api_id = aws_api_gateway_rest_api.srp-api.id
+}
+
+resource "aws_api_gateway_resource" "textbook-search" {
+  parent_id   = aws_api_gateway_resource.textbook.id
+  path_part   = "search"
+  rest_api_id = aws_api_gateway_rest_api.srp-api.id
+}
+
+resource "aws_api_gateway_method" "textbook-get" {
+  authorization    = "NONE"
+  http_method      = "GET"
+  resource_id      = aws_api_gateway_resource.textbook-get.id
+  rest_api_id      = aws_api_gateway_rest_api.srp-api.id
+  api_key_required = true
+}
+
+resource "aws_api_gateway_method" "textbook-search-get" {
+  authorization    = "NONE"
+  http_method      = "GET"
+  resource_id      = aws_api_gateway_resource.textbook-search.id
+  rest_api_id      = aws_api_gateway_rest_api.srp-api.id
+  api_key_required = true
+}
+
+resource "aws_api_gateway_integration" "textbook-get-integration" {
+  rest_api_id             = aws_api_gateway_rest_api.srp-api.id
+  resource_id             = aws_api_gateway_resource.textbook-get.id
+  http_method             = aws_api_gateway_method.textbook-get.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.srp-textbook-get.invoke_arn
+}
+
+resource "aws_api_gateway_integration" "textbook-search-integration" {
+  rest_api_id             = aws_api_gateway_rest_api.srp-api.id
+  resource_id             = aws_api_gateway_resource.textbook-search.id
+  http_method             = aws_api_gateway_method.textbook-search-get.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.srp-textbook-search.invoke_arn
+}
+
+# Create the answers endpoint
+resource "aws_api_gateway_resource" "answers" {
+  parent_id   = aws_api_gateway_rest_api.srp-api.root_resource_id
+  path_part   = "answers"
+  rest_api_id = aws_api_gateway_rest_api.srp-api.id
+}
+
+
+
+
 # Create the stage for the Rest API
 resource "aws_api_gateway_stage" "srp-dev-stage" {
   deployment_id = aws_api_gateway_deployment.srp-api.id

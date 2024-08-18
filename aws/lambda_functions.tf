@@ -127,3 +127,21 @@ resource "aws_lambda_function" "srp-textbook-get" {
   source_code_hash = data.archive_file.srp-textbook-get-archive.output_base64sha256
   runtime = "nodejs20.x"
 }
+
+
+# Search for textbooks lambda function (unprotected)
+data "archive_file" "srp-textbook-search-archive" {
+    type        = "zip"
+    source_dir  = "./lambdas/srp-textbook-search"
+    output_path = "./outputs/srp-textbook-search.zip"
+}
+
+resource "aws_lambda_function" "srp-textbook-search" {
+  filename      = "./outputs/srp-textbook-search.zip"
+  function_name = "srp-textbook-search"
+  role          = aws_iam_role.lambda-execution-role.arn
+  handler       = "index.handler"
+
+  source_code_hash = data.archive_file.srp-textbook-search-archive.output_base64sha256
+  runtime = "nodejs20.x"
+}

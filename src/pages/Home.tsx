@@ -2,38 +2,29 @@ import Search from '../components/Search';
 import SearchResults from '../components/SearchResults';
 import { useState } from 'react';
 import './Home.css'
-
-const textbooks: string[] = [
-    "Apple",
-    "Banana",
-    "Orange",
-    "Pineapple",
-    "Grapes",
-    "Strawberry",
-    "Watermelon",
-    "Mango",
-];
+import { textbookSearch } from '../apiCalls/apiCalls';
+import Textbook from '../types/Textbook';
 
 const Home = () => {
-    const [ searchResults, setSearchResults ] = useState<string[]>([]);
+    const [ searchResults, setSearchResults ] = useState<Textbook[]>([]);
 
     const handleSearch = (query: string) => {
-        setSearchResults(textbooks.filter(title => 
-            title.toLowerCase().includes(query.toLowerCase())
-        ));
+        textbookSearch(query).then((textbooks) => {
+            setSearchResults(textbooks);
+        });
     };
 
     return (
         <div className='homePageContainer'>
             <div className='homePageTextContainer'>
-                <text className='titleText'>MathLib</text>
+                <span className='titleText'>MathLib</span>
             </div>
             <div className='homeSearchBarContainer'>
-                <Search onSearch={handleSearch}/>
+                <Search onSearch={handleSearch} results={searchResults}/>
             </div>
-            <SearchResults results={searchResults}/>
         </div>
     );
 }
+    
 
 export default Home;
