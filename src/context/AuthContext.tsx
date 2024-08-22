@@ -30,11 +30,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 		console.log('API Key set:', process.env.REACT_APP_AWS_API_KEY);
 		axios.defaults.headers.common['x-api-key'] = `${process.env.REACT_APP_AWS_API_KEY}`;
 		const loadToken = async () => {
-            const token = Cookies.get(TOKEN_KEY);
+			const token = Cookies.get(TOKEN_KEY);
 			console.log('Token: ', token);
 			if (token) {
 				axios.defaults.headers.common['Authorization'] = `${token}`;
 				setAuthState({ token: token, authenticated: true });
+			}
+			else {
+				setAuthState({ token: null, authenticated: false });
 			}
 		};
 		loadToken();
@@ -77,7 +80,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 	};
 
 	const logout = async () => {
-        Cookies.remove(TOKEN_KEY);
+		Cookies.remove(TOKEN_KEY);
 		axios.defaults.headers.common['Authorization'] = '';
 
 		setAuthState({

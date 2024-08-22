@@ -40,8 +40,8 @@ resource "aws_dynamodb_table" "textbooks" {
 resource "aws_dynamodb_table" "answers" {
   name           = "srp-answers"
   billing_mode   = "PROVISIONED"
-  hash_key       = "answerId"
-  range_key      = "textbookId"
+  hash_key       = "textbookId"
+  range_key      = "answerId"
   read_capacity  = 1
   write_capacity = 1
 

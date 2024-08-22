@@ -8,7 +8,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AnswerCreate from './pages/AnswerCreate';
 import SearchPage from './pages/SearchPage';
-import Solutions from './pages/Solutions';
+import SolutionPage from './pages/SolutionPage';
 
 // App Name Ideas: 
 // - MathPath
@@ -30,8 +30,8 @@ const App = () => {
           <Route path="/account" element={ <Protected/> }/>
           <Route path="/search" element={ <SearchPage/> } />
           <Route path="/textbook/:textbookId" element={ <TextbookPage /> } />
-          <Route path="/solutions/:textbookId/:chapter/:section/:problem" element={ <Solutions/> }/>
-          <Route path="/create" element={ <AnswerCreate/> }/>
+          <Route path="/solutions/:textbookId/:chapter/:section/:problem" element={ <SolutionPage/> }/>
+          <Route path="/create/:textbookId" element={ <AnswerCreate/> }/>
           <Route path="/*" element={<NotFound/>}  />
         </Routes>
       </BrowserRouter>

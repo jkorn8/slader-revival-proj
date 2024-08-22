@@ -1,0 +1,32 @@
+.buttonGroup {
+    border-radius: 0;
+    border-left: 2px solid #e5e5e5;
+    border-right: 2px solid #e5e5e5;
+    font-size: 16px;
+    padding: 10px 20px 10px 20px;
+}
+
+.buttonGroup:first-child {
+    border-radius: 15px 0 0 15px;
+    border-right: 2px solid #e5e5e5
+}
+
+.buttonGroup:last-child {
+    border-radius: 0 15px 15px 0;
+    border-left: 2px solid #e5e5e5
+}
+
+.buttonGroup:disabled {
+    background-color: #e5e5e5;
+    border: 2px solid #1013C5;
+    color: #1013C5;
+}
+
+select>option {
+    color: #1013C580;
+}
+
+select:disabled:hover {
+    cursor: not-allowed;
+    background-color: #d8d8d8;
+}

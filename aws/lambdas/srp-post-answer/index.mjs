@@ -13,21 +13,24 @@ export const handler = async (event) => {
     const { textbookId, chapter, section, question, solution } = JSON.parse(event.body);
     // const { textbookId, chapter, section, question, solution } = event.body;
     const userId = event.requestContext.authorizer.userId;
+    const userName = event.requestContext.authorizer.username;
 
-    if(!textbookId || !chapter || !section || !question || !solution) 
+    if (!textbookId || !chapter || !section || !question || !solution)
         return apiResponse(400, 'Missing required fields in body');
 
-    if(!userId)
-        return apiResponse(400, 'Missing userId in request context');
+    if (!userId || !userName)
+        return apiResponse(400, 'Missing token in request context');
 
     const answer_object = {
         answerId: randomUUID(),
         textbookId: textbookId,
-        chapter: chapter,
-        section: section,
-        question: question,
+        chapter: chapter.toString(),
+        section: section.toString(),
+        question: question.toString(),
         solution: solution,
         userId: userId,
+        userName: userName,
+        timeCreated: Date.now(),
         ratings: []
     }
 
@@ -48,7 +51,7 @@ const apiResponse = (statusCode, message) => {
     return {
         statusCode: statusCode,
         headers: {
-            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Headers": "Content-Type",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
             "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS

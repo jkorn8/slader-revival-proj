@@ -86,3 +86,10 @@ resource "aws_lambda_permission" "srp-answers-post-integration" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.srp-api.execution_arn}/*/POST/answers"
 }
+
+resource "aws_lambda_permission" "srp-authorizer-integration" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.srp-authorizer.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.srp-api.execution_arn}/*"
+}
