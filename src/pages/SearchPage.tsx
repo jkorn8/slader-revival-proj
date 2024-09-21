@@ -12,9 +12,9 @@ const SearchPage: React.FC = () => {
     const searchParams: URLSearchParams = new URLSearchParams(location.search);
     const urlSearch: string = searchParams.get('query') || '';
 
-    const [ searchResults, setSearchResults ] = useState<Textbook[]>([]);   // Results from the initial search 
-    const [ queryResults, setQueryResults ] = useState<Textbook[]>([]);     // Results for the search bar autocomplete
-    const [ loading, setLoading ] = useState<boolean>(false);
+    const [searchResults, setSearchResults] = useState<Textbook[]>([]);   // Results from the initial search 
+    const [queryResults, setQueryResults] = useState<Textbook[]>([]);     // Results for the search bar autocomplete
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         setLoading(true);
@@ -24,7 +24,7 @@ const SearchPage: React.FC = () => {
             console.log(e);
             setSearchResults([]);
         }).finally(() => setLoading(false));
-    }, [ urlSearch ]);
+    }, [urlSearch]);
 
     const handleQuery = (query: string) => {
         textbookSearch(query).then((textbooks) => {
@@ -39,15 +39,15 @@ const SearchPage: React.FC = () => {
     return (
         <div>
             <div className='searchPageSearchBarContainer'>
-                <Search onSearch={handleQuery} results={queryResults} startingValue={urlSearch}/>
+                <Search onSearch={handleQuery} results={queryResults} startingValue={urlSearch} />
             </div>
-            {loading ? <Loading/> : 
+            {loading ? <Loading /> :
                 <div className='searchResultsContainer'>
                     <span className='resultsText'>{searchResults.length} Results</span>
                     {searchResults.map((searchResult, id) => {
                         return (
                             <div key={id} className="searchResult" onClick={() => handleTextbookSelect(searchResult.textbookId)}>
-                                <img src={'https://picsum.photos/200/300'} alt={searchResult.title} height={120}></img>
+                                <img src={`https://srp-textbook-images.s3.us-west-2.amazonaws.com/${searchResult.textbookId}.jpg`} alt={searchResult.title} height={120}></img>
                                 <div className="searchResultTextContainer">
                                     <span className='searchResultTextTitle'>{searchResult.title}</span>
                                     <span className='searchResultText'>ISBN: {searchResult.ISBNs.join(', ')}</span>

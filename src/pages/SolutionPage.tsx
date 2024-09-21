@@ -2,8 +2,9 @@ import './SolutionPage.css';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MathJaxContext, MathJax } from 'better-react-mathjax';
+import Textbook from '../types/Textbook';
 import Solution from '../types/Solution';
-import { solutionGet } from '../apiCalls/apiCalls';
+import { solutionGet, textbookGet } from '../apiCalls/apiCalls';
 import { Loading } from '../components/Loading';
 import ListIcon from '@mui/icons-material/List';
 import AddIcon from '@mui/icons-material/Add';
@@ -15,11 +16,18 @@ const SolutionPage = () => {
     const navigate = useNavigate();
 
     const [isLoading, setLoading] = useState<boolean>(false);
+    const [textbook, setTextbook] = useState<Textbook | undefined>();
     const [solutions, setSolutions] = useState<Solution[]>([]);
 
     useEffect(() => {
         setLoading(true);
         console.log(textbookId, chapter, section, problem);
+        textbookGet(textbookId || '-1').then((textbook) => {
+            setTextbook(textbook);
+          }).catch((e) => {
+            console.log(e);
+            setTextbook(undefined);
+        });
         solutionGet(textbookId || '', chapter || '', section || '', problem || '').then((solutions) => {
             setSolutions(solutions);
             setLoading(false);
@@ -53,7 +61,7 @@ const SolutionPage = () => {
         <div className='solutionsContainer'>
             <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
-                    <h1 className='solutionTextbookTitle'>Harry Potter and the Half Blood Prince</h1>
+                    <h1 className='solutionTextbookTitle'>{textbook?.title}</h1>
                     <div className='chapterAndSectionContainer'>
                         <h2 className='solutionLink' onClick={handleChapterClicked}>Chapter {chapter}</h2>
                         <h2 style={{ fontWeight: '300', fontSize: '18px', margin: '1px 10px 0 10px', color: 'black', display: 'flex', height: '100%', alignItems: 'center' }}>{'/'}</h2>

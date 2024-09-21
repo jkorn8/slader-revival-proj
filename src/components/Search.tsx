@@ -10,12 +10,12 @@ type SearchProps = {
     startingValue?: string;
 }
 
-const Search: React.FC<SearchProps> = ({ onSearch, startingValue = '', results})  => {
+const Search: React.FC<SearchProps> = ({ onSearch, startingValue = '', results }) => {
     const navigate = useNavigate();
 
-    const [ query, setQuery ] = useState(startingValue);
-    const [ isFocused, setFocused ] = useState(false);
-    
+    const [query, setQuery] = useState(startingValue);
+    const [isFocused, setFocused] = useState(false);
+
     const handleIsEnterPressed = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             navigate('/search?query=' + query);
@@ -23,39 +23,38 @@ const Search: React.FC<SearchProps> = ({ onSearch, startingValue = '', results})
     };
 
     return (
-        // TODO: Combine with SearchResults to make a single component SearchBar
         <div className='searchBarContainer'>
             <div className='bar'>
                 <div className='searchBarIconContainer'>
                     <SearchIcon />
                 </div>
                 <input
-                    type='text' 
-                    placeholder='Find your textbook...' 
+                    type='text'
+                    placeholder='Find your textbook...'
                     value={query}
                     onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
+                    onBlur={async () => setFocused(false)}
                     onChange={(event) => {
                         setQuery(event.target.value);
                         onSearch(event.target.value);
                     }}
-                    onKeyDown={handleIsEnterPressed}/>
+                    onKeyDown={handleIsEnterPressed} />
             </div>
-            {true ? (
+            {isFocused ? (
                 <div className="results-list">
-                    { results.map((result, i) => 
-                        <div 
-                            className="search-result" 
+                    {results.map((result, i) =>
+                        <div
+                            className="search-result"
                             key={i}
-                            onClick={() => navigate(`/textbook/${result.textbookId}`)} 
+                            onMouseDown={() => navigate(`/textbook/${result.textbookId}`)}
                             style={{
-                                top: `calc(100% + ${i * 44}px)`, 
-                                borderRadius: `${ i === 0 ? '10px 10px' : '0 0'} ${ i === results.length - 1 ? '10px 10px' : '0 0'}`
+                                top: `calc(100% + ${i * 44}px)`,
+                                borderRadius: `${i === 0 ? '10px 10px' : '0 0'} ${i === results.length - 1 ? '10px 10px' : '0 0'}`
                             }}>
                             {result.title}
                         </div>
                     )}
-                </div> ) : null}
+                </div>) : null}
         </div>
     );
 }

@@ -69,8 +69,8 @@ const TextbookPage: React.FC = () => {
     return (
         <div className='textbookPageContainer'>
             <div className='textbookContainer'>
-                <h1>Harry Potter and the Half-Blood Prince</h1>
-                <img src={'https://picsum.photos/200/300'} alt={textbook.title} height={280} style={{ margin: '30px' }}></img>
+                <h1>{textbook.title}</h1>
+                <img src={`https://srp-textbook-images.s3.us-west-2.amazonaws.com/${textbook.textbookId}.jpg`} alt={textbook.title} height={280} style={{ margin: '30px' }}></img>
                 <h3>ISBN: {textbook.ISBNs[0]}</h3>
                 <h3>Authors: {textbook.authors}</h3>
                 <h3>6th Edition</h3>
@@ -133,6 +133,8 @@ const TextbookPage: React.FC = () => {
             </div>
         </div>
     );
+
+    // TODO: Add an option to request a new textbook
 }
 
 // TODO: Check pararms in URL for validity

@@ -121,7 +121,7 @@ data "archive_file" "srp-textbook-get-archive" {
 resource "aws_lambda_function" "srp-textbook-get" {
   filename      = "./outputs/srp-textbook-get.zip"
   function_name = "srp-textbook-get"
-  role          = aws_iam_role.lambda-execution-role.arn
+  role          = aws_iam_role.lambda-dynamodb-role.arn
   handler       = "index.handler"
 
   source_code_hash = data.archive_file.srp-textbook-get-archive.output_base64sha256
@@ -139,7 +139,7 @@ data "archive_file" "srp-textbook-search-archive" {
 resource "aws_lambda_function" "srp-textbook-search" {
   filename      = "./outputs/srp-textbook-search.zip"
   function_name = "srp-textbook-search"
-  role          = aws_iam_role.lambda-execution-role.arn
+  role          = aws_iam_role.lambda-dynamodb-role.arn
   handler       = "index.handler"
 
   source_code_hash = data.archive_file.srp-textbook-search-archive.output_base64sha256
