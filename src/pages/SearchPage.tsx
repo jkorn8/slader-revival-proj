@@ -43,7 +43,7 @@ const SearchPage: React.FC = () => {
             </div>
             {loading ? <Loading /> :
                 <div className='searchResultsContainer'>
-                    <span className='resultsText'>{searchResults.length} Results</span>
+                    <span className='resultsText'>{searchResults.length} Result{searchResults.length !== 1 ? 's' : ''}</span>
                     {searchResults.map((searchResult, id) => {
                         return (
                             <div key={id} className="searchResult" onClick={() => handleTextbookSelect(searchResult.textbookId)}>

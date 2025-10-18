@@ -2,7 +2,7 @@ import axios from "axios";
 import Textbook from "../types/Textbook";
 import Solution from "../types/Solution";
 
-const API_URL = "https://i7q4t70bv6.execute-api.us-west-1.amazonaws.com/dev";
+const API_URL = "https://31ku86ywpf.execute-api.us-west-1.amazonaws.com/dev";
 
 export const textbookSearch = async (query: string): Promise<Textbook[]> => {
     try {
@@ -33,7 +33,7 @@ export const solutionGet = async (
     question: string | number
 ): Promise<Solution[]> => {
     try {
-        const response = await axios.get(`https://i7q4t70bv6.execute-api.us-west-1.amazonaws.com/dev/answers?textbookId=${textbookId}&chapter=${chapter}&section=${section}&question=${question}`);
+        const response = await axios.get(`${API_URL}/answers?textbookId=${textbookId}&chapter=${chapter}&section=${section}&question=${question}`);
         return response.data as Solution[];
     }
     catch (err) {

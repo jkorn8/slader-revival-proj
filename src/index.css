@@ -1,3 +1,58 @@
+:root {
+  box-sizing: border-box;
+  
+  /* Modern Color Palette */
+  /* Primary Colors - Deep Indigo with modern gradients */
+  --primary-blue: #4F46E5;
+  --primary-blue-hover: #6366F1;
+  --primary-blue-light: #818CF8;
+  --primary-blue-dark: #3730A3;
+  --primary-blue-alpha-50: #4F46E550;
+  --primary-blue-alpha-40: #4F46E540;
+  --primary-blue-alpha-80: #4F46E580;
+  --primary-blue-alpha-10: #4F46E510;
+  
+  /* Accent Colors - Complementary teal */
+  --accent-teal: #06B6D4;
+  --accent-teal-hover: #0891B2;
+  --accent-teal-light: #67E8F9;
+  
+  /* Background Colors - Modern neutrals */
+  --background-light: #FAFAFA;
+  --background-gray: #F8FAFC;
+  --background-white: #FFFFFF;
+  --background-card: #FFFFFF;
+  --background-subtle: #F1F5F9;
+  
+  /* Text Colors - Improved contrast */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  --text-white: #FFFFFF;
+  
+  /* Border Colors - Subtle and modern */
+  --border-light: #E2E8F0;
+  --border-medium: #CBD5E1;
+  --border-strong: #94A3B8;
+  --border-focus: #4F46E5;
+  
+  /* Status Colors */
+  --success: #10B981;
+  --success-light: #D1FAE5;
+  --warning: #F59E0B;
+  --warning-light: #FEF3C7;
+  --error: #EF4444;
+  --error-light: #FEE2E2;
+  
+  /* Interactive States */
+  --hover-overlay: #F1F5F9;
+  --active-overlay: #E2E8F0;
+  --disabled: #94A3B8;
+  --disabled-bg: #F1F5F9;
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -8,6 +63,5 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

@@ -1,6 +1,7 @@
 import './App.css';
-import { Route, Routes, Navigate, Link, BrowserRouter } from 'react-router-dom';
+import { Route, Routes, Navigate, Link, BrowserRouter, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { useState } from 'react';
 
 import Home from './pages/Home';
 import TextbookPage from './pages/TextbookPage';
@@ -9,6 +10,9 @@ import Signup from './pages/Signup';
 import AnswerCreate from './pages/AnswerCreate';
 import SearchPage from './pages/SearchPage';
 import SolutionPage from './pages/SolutionPage';
+import Search from './components/Search';
+import { textbookSearch } from './apiCalls/apiCalls';
+import Textbook from './types/Textbook';
 
 // App Name Ideas: 
 // - MathPath
@@ -42,32 +46,50 @@ const App = () => {
 }
 
 const TitleBar = () => {
-
   const { authState } = useAuth();
+  const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<Textbook[]>([]);
+
+  const isHomePage = location.pathname === '/';
+  const isSearchPage = location.pathname === '/search';
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    if (query.trim()) {
+      textbookSearch(query).then((textbooks: Textbook[]) => {
+        setSearchResults(textbooks);
+      });
+    } else {
+      setSearchResults([]);
+    }
+  };
 
   return (
     <div className="TitleBar">
-      <div style={{ width: '20%' }}>
-        <Link to="/" style={{ textDecoration: 'none', color: '#1013C5', marginLeft: '20px', fontFamily: 'Poppins, sans-serif', fontSize: '32px' }}>MathLib</Link>
+      <div className="titleBarLeft">
+        <Link to="/" className="titleBarLink">MathLib</Link>
+        {!(isHomePage || isSearchPage) && (
+          <div className="titleBarSearchContainer">
+            <Search 
+              onSearch={handleSearch} 
+              results={searchResults}
+              startingValue={searchQuery}
+            />
+          </div>
+        )}
       </div>
-      <div style={{ width: '60%', display: 'flex', justifyContent: 'flex-start' }}>
-        {/* <Search onSearch={(query: string) => {
-          textbookSearch(query).then((textbooks: Textbook[]) => {
-            setSearchResults(textbooks);
-          });
-        }} results={searchResults}/> */}
-      </div>
-      <div style={{ width: '20%', display: 'flex', justifyContent: 'right' }}>
+      <div className="titleBarRight">
         {authState && authState.authenticated ?
-          <Link to="/account" style={{ marginRight: '10px', textDecoration: 'none', color: 'black' }}>
-            <img src={ps1Hagrid} alt="Profile" style={{ height: '8vh', borderRadius: '90px' }} />
+          <Link to="/account" className="profileLink">
+            <img src={ps1Hagrid} alt="Profile" className="profileImage" />
           </Link>
           : <div>
             <Link to="/signup" className='authButton'>
-              <span style={{ fontWeight: 'bold', color: 'white', fontSize: '16px' }}>Sign Up</span>
+              <span className="authButtonText">Sign Up</span>
             </Link>
             <Link to="/login" className='authButton'>
-              <span style={{ fontWeight: 'bold', color: 'white', fontSize: '16px' }}>Log In</span>
+              <span className="authButtonText">Log In</span>
             </Link>
           </div>
         }
@@ -77,7 +99,6 @@ const TitleBar = () => {
 }
 
 const Protected = () => {
-
   const { authState, onLogout } = useAuth();
 
   if (!authState || authState.authenticated === null || authState.authenticated === false) {
@@ -85,18 +106,20 @@ const Protected = () => {
   }
 
   return (
-    <div>
-      <h1>Protected Page!</h1>
-      <h2>Token: {authState.token}</h2>
-      <button onClick={() => onLogout!()}>Logout</button>
+    <div className="protectedContainer">
+      <h1 className="protectedTitle">Welcome to Your Account!</h1>
+      <p className="protectedSubtitle">You are successfully logged in.</p>
+      <button onClick={() => onLogout!()} className="protectedLogoutButton">Logout</button>
     </div>
   )
 }
 
 const NotFound: React.FC = () => {
   return (
-    <div>
-      <h1 style={{ textAlign: 'center' }}>404 Page Not Found</h1>
+    <div className="notFoundContainer">
+      <h1 className="notFoundTitle">404 Page Not Found</h1>
+      <p className="notFoundSubtitle">The page you're looking for doesn't exist.</p>
+      <Link to="/" className="notFoundButton">Go Home</Link>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import axios, { AxiosResponse } from 'axios';
 
 const TOKEN_KEY = 'my-jwt';
-const API_URL = 'https://i7q4t70bv6.execute-api.us-west-1.amazonaws.com/dev/users';
+const API_URL = 'https://31ku86ywpf.execute-api.us-west-1.amazonaws.com/dev/users';
 const AuthContext = createContext<AuthContextProps>({});
 
 interface AuthContextProps {

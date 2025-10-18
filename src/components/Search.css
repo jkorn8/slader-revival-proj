@@ -5,25 +5,35 @@
     flex-direction: column;
     width: 60%;
     border-radius: 20px;
+    position: relative;
 }
 
 .searchBarIconContainer {
-    margin: 22px;
+    margin: 12px;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .bar {
-    border-radius: 20px;
+    border-radius: 16px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #E5E5E5;
+    background-color: var(--background-white);
+    border: 2px solid var(--border-light);
     height: 80px;
     width: 100%;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .bar:focus-within {
-    outline: 2px solid #1013C580;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px var(--primary-blue-alpha-10);
 }
 
 input {
@@ -32,13 +42,14 @@ input {
     border: none;
     background-color: transparent;
     height: 100%;
-    color: #000000;
+    color: var(--text-primary);
     font-size: 28px;
     font-family: 'Poppins', sans-serif;
+    padding: 0 20px;
 }
 
 input::placeholder{
-    color: #1013C580;
+    color: var(--text-muted);
     font-size: 28px;
     font-family: 'Poppins', sans-serif;
 }
@@ -48,26 +59,79 @@ input:focus {
 }
 
 .results-list {
-    position: relative;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
     width: 100%;
     margin-top: 5px;
-  }
-
-.search-result {
-    position: absolute;
-    left: 0;
-    right: 0;
-    padding: 10px 20px;
-    border: 1px solid #e5e5e5;
-    height: 24px;
-    background-color: white;
-    color: black;
-    font-family: 'Poppins', sans-serif;
+    z-index: 1000;
+    background-color: var(--background-white);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-light);
+    border-top: none;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
-.search-result:hover {
-    background-color: #e5e5e5;
+.search-result {
+    position: relative;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border-light);
+    height: auto;
+    min-height: 48px;
+    background-color: var(--background-white);
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.2s ease;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.search-result:last-child {
+    border-bottom: none;
+    border-radius: 0 0 12px 12px;
+}
+
+/* Todo: Make this more generalized so that it auto resizes*/
+ 
+.search-result:hover {
+    background-color: var(--hover-overlay);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Title bar specific styles */
+.titleBarSearchContainer .searchBarContainer {
+    width: 100%;
+    max-width: 400px;
+}
+
+.titleBarSearchContainer .bar {
+    height: 40px;
+    border-radius: 12px;
+}
+
+.titleBarSearchContainer input {
+    font-size: 16px;
+    padding: 0 16px;
+}
+
+.titleBarSearchContainer input::placeholder {
+    font-size: 16px;
+}
+
+.titleBarSearchContainer .searchBarIconContainer {
+    margin: 8px;
+    width: 20px;
+    height: 20px;
+}
+
+.titleBarSearchContainer .results-list {
+    border-radius: 0 0 12px 12px;
+    margin-top: 2px;
 }

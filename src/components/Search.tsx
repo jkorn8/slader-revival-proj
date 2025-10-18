@@ -40,17 +40,14 @@ const Search: React.FC<SearchProps> = ({ onSearch, startingValue = '', results }
                     }}
                     onKeyDown={handleIsEnterPressed} />
             </div>
-            {isFocused ? (
+            {isFocused && results.length > 0 && query.length > 0 ? (
                 <div className="results-list">
                     {results.map((result, i) =>
                         <div
                             className="search-result"
                             key={i}
                             onMouseDown={() => navigate(`/textbook/${result.textbookId}`)}
-                            style={{
-                                top: `calc(100% + ${i * 44}px)`,
-                                borderRadius: `${i === 0 ? '10px 10px' : '0 0'} ${i === results.length - 1 ? '10px 10px' : '0 0'}`
-                            }}>
+                            >
                             {result.title}
                         </div>
                     )}

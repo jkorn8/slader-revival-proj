@@ -1,15 +1,16 @@
 .container {
   height: 100vh;
   width: 100vw;
-  background-color: '#F8F8F8';
+  background-color: var(--background-gray);
 }
 
 .TitleBar {
   width: 100vw;
   height: 8vh;
-  background-color: #30C5FF;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
   display: flex;
   align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .drawer {
@@ -25,17 +26,169 @@
 }
 
 .authButton {
-  background-color: #1013C5;
-  border-radius: 15px;
+  background-color: var(--primary-blue);
+  border-radius: 12px;
   text-decoration: none;
-  padding: 12px;
-  margin-right: 24px;
+  padding: clamp(8px, 1.2vw, 12px) clamp(12px, 2vw, 24px);
+  margin-right: clamp(8px, 2vw, 24px);
+  color: var(--text-white);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+  flex-shrink: 1;
 }
 
 .authButton:hover {
-  background-color: #1a1eff;
+  background-color: var(--primary-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
 }
 
 span {
   font-family: 'Poppins', sans-serif;
+}
+
+.titleBarLeft {
+  width: 80%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.titleBarRight {
+  width: 20%;
+  display: flex;
+  justify-content: right;
+}
+
+.titleBarLink {
+  text-decoration: none;
+  color: var(--text-white);
+  margin: 0 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.titleBarLink:hover {
+  color: var(--accent-teal-light);
+  transform: translateY(-1px);
+}
+
+.profileLink {
+  margin-right: 10px;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.profileImage {
+  height: 6vh;
+  border-radius: 50%;
+  border: 2px solid var(--text-white);
+  transition: all 0.2s ease;
+}
+
+.profileImage:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.authButtonText {
+  font-weight: 600;
+  color: var(--text-white);
+  font-size: clamp(12px, 1.6vw, 16px);
+}
+
+/* Search Bar in Title Bar */
+.titleBarSearchContainer {
+  max-width: 300px;
+  flex-grow: 1;
+}
+
+/* 404 Page */
+.notFoundContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+}
+
+.notFoundTitle {
+  font-size: 48px;
+  color: var(--primary-blue);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.notFoundSubtitle {
+  font-size: 24px;
+  color: var(--text-secondary);
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 32px;
+}
+
+.notFoundButton {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-hover) 100%);
+  color: var(--text-white);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.2);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.notFoundButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(79, 70, 229, 0.3);
+}
+
+/* Protected Page */
+.protectedContainer {
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.protectedTitle {
+  font-size: 32px;
+  color: var(--primary-blue);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.protectedSubtitle {
+  font-size: 18px;
+  color: var(--text-secondary);
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 24px;
+}
+
+.protectedLogoutButton {
+  background: linear-gradient(135deg, var(--error) 0%, #DC2626 100%);
+  color: var(--text-white);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.2);
+}
+
+.protectedLogoutButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(239, 68, 68, 0.3);
 }
