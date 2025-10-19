@@ -9,6 +9,8 @@ const Signup: React.FC = () => {
     const [ email, setEmail ] = useState<string>('');
     const [ password, setPassword ] = useState<string>('');
 
+    const [ error, setError ] = useState<string>('');
+
     const { authState, onRegister, onLogin } = useAuth();
     let navigate = useNavigate();
 
@@ -17,10 +19,28 @@ const Signup: React.FC = () => {
     }
 
     const handleSignUp = async () => {
-        const response = await onRegister!(username, email, password)
+        setError('');
+        const response = await onRegister!(username, email, password);
         if (response.success) onLogin!(email, password);
-        else alert('Error creating user');
-    }
+        else {
+            const statusCode: number = (response as any)?.status;
+            if (statusCode === 500 || statusCode === 501 || statusCode === 502 || statusCode === 503) {
+                setError('Server error. Please try again later.');
+            }
+            else if (statusCode === 401 || statusCode === 403) {
+                setError('Invalid username or email.');
+            }
+            else if (statusCode === 404 || statusCode === 400) {
+                setError('Please enter all required fields.');
+            }
+            else if (statusCode === undefined) {
+                setError('Network error. Please check your connection and try again.');
+            }
+            else {
+                setError('We\'re not quite sure what went wrong. Sorry about that! Please try again.');
+            }
+        }
+    };
 
     return (
         <div className='signUpContainer'>
@@ -58,6 +78,7 @@ const Signup: React.FC = () => {
                     type="password"
                     inputProps={{style: {fontFamily: 'Poppins, sans-serif'}}}
                     InputLabelProps={{style: {fontFamily: 'Poppins, sans-serif'}}}/>
+                {error && <div className='errorContainer'>{error}</div>}
                 <button className='signUpButton' onClick={handleSignUp}>
                     <span className='signUp'>
                         Create Account

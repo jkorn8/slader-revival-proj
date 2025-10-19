@@ -86,10 +86,10 @@ const TitleBar = () => {
           </Link>
           : <div>
             <Link to="/signup" className='authButton'>
-              <span className="authButtonText">Sign Up</span>
+              Sign Up
             </Link>
             <Link to="/login" className='authButton'>
-              <span className="authButtonText">Log In</span>
+              Log In
             </Link>
           </div>
         }

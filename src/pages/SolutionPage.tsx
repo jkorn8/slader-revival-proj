@@ -55,7 +55,6 @@ const SolutionPage = () => {
     }
 
     if (validateParams(textbookId || '', chapter || '', section || '', problem || '')) { };
-    // TODO: move styles to the css file
     // TODO: implement the solution rating system
     return (
         <div className='solutionsContainer'>

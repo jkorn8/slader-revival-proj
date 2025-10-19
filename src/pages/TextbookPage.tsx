@@ -90,7 +90,7 @@ const TextbookPage: React.FC = () => {
                             disableGutters={true}
                             square={true}
                             key={j}
-                            sx={{ width: '100%', boxShadow: 'none', borderRadius: `${j === 0 ? '20px 20px 0 0' : j === textbook.sections[selectedChapter].length - 1 ? '0 0 20px 20px' : '0'}`, backgroundColor: '#D9D9D9', border: '1px solid #B9B9B9' }}
+                            sx={{ width: '100%', boxShadow: 'none', borderRadius: `${j === 0 ? '20px 20px 0 0' : j === textbook.sections[selectedChapter].length - 1 ? '0 0 20px 20px' : '0'}`, backgroundColor: 'var(--white-background)', border: '1px solid var(--border-light)' }}
                             expanded={j === selectedSection}
                             onChange={() => handleSectionChange(j)}
                         >
@@ -102,21 +102,16 @@ const TextbookPage: React.FC = () => {
                             >
                                 <h3>{section}</h3>
                             </AccordionSummary>
-                            <AccordionDetails style={{ backgroundColor: 'white', display: 'flex', alignItems: 'center', flexDirection: 'column', padding: '30px 0px 30px 0px' }}>
+                            <AccordionDetails style={{ backgroundColor: 'white', borderRadius: j === textbook.sections[selectedChapter].length - 1 ? '0 0 20px 20px' : '0', display: 'flex', alignItems: 'center', flexDirection: 'column', padding: '30px 0px 30px 0px' }}>
                                 <div style={{ padding: '5px 0 20px 0', display: 'flex', flexDirection: 'row', width: '80%', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <h3 onClick={(e) => handleSolutionSelect(e, 1)}>Problem 1</h3>
-                                    <h3 onClick={(e) => handleSolutionSelect(e, 2)}>Problem 2</h3>
-                                    <h3 onClick={(e) => handleSolutionSelect(e, 3)}>Problem 3</h3>
-                                    <h3 onClick={(e) => handleSolutionSelect(e, 4)}>Problem 4</h3>
-                                    <h3 onClick={(e) => handleSolutionSelect(e, 5)}>Problem 5</h3>
+                                    <h3 className="problemLabel" onClick={(e) => handleSolutionSelect(e, 1)}>Problem 1</h3>
+                                    <h3 className="problemLabel" onClick={(e) => handleSolutionSelect(e, 2)}>Problem 2</h3>
+                                    <h3 className="problemLabel" onClick={(e) => handleSolutionSelect(e, 3)}>Problem 3</h3>
+                                    <h3 className="problemLabel" onClick={(e) => handleSolutionSelect(e, 4)}>Problem 4</h3>
+                                    <h3 className="problemLabel" onClick={(e) => handleSolutionSelect(e, 5)}>Problem 5</h3>
                                 </div>
                                 <button
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}
+                                    className='postSolutionButton'
                                     onClick={() => navigate(`/create/${textbookId}`, {
                                         state: {
                                             chapter: selectedChapter + 1,

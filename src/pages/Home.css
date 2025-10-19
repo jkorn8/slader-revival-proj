@@ -140,7 +140,7 @@ image::placeholder {
 }
 
 .ctaButton {
-    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-hover) 100%);
+    background: var(--primary-blue);
     color: var(--text-white);
     border: none;
     border-radius: 12px;
@@ -156,6 +156,8 @@ image::placeholder {
 }
 
 .ctaButton:hover {
-    transform: translateY(-2px);
+    background-color: var(--primary-blue-hover);
+    color: var(--accent-teal-light);
+    transform: translateY(-1px);
     box-shadow: 0 6px 12px rgba(79, 70, 229, 0.3);
 }

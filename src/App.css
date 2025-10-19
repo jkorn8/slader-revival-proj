@@ -26,11 +26,13 @@
 }
 
 .authButton {
+  font-family: 'Poppins', sans-serif;
   background-color: var(--primary-blue);
   border-radius: 12px;
   text-decoration: none;
-  padding: clamp(8px, 1.2vw, 12px) clamp(12px, 2vw, 24px);
-  margin-right: clamp(8px, 2vw, 24px);
+  padding: 12px 24px;
+  margin-right: 24px;
+  font-size: 16px;
   color: var(--text-white);
   font-weight: 600;
   transition: all 0.2s ease;
@@ -40,8 +42,9 @@
 
 .authButton:hover {
   background-color: var(--primary-blue-hover);
+  color: var(--accent-teal-light);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 6px 12px rgba(79, 70, 229, 0.2);
 }
 
 span {
@@ -92,12 +95,6 @@ span {
 .profileImage:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.authButtonText {
-  font-weight: 600;
-  color: var(--text-white);
-  font-size: clamp(12px, 1.6vw, 16px);
 }
 
 /* Search Bar in Title Bar */

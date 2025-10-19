@@ -88,7 +88,7 @@ const Home = () => {
                         Join thousands of students who are already using MathLib to improve their grades 
                         and understanding. Start exploring solutions today!
                     </p>
-                    <a href="#search" className='ctaButton'>Start Searching Now</a>
+                    <a href="search" className='ctaButton'>Start Searching Now</a>
                 </div>
             </div>
         </div>

@@ -15,8 +15,8 @@ export const handler = async (event) => {
   const id = body?.id;
   const password = body?.password;
   
-  if(!id) return response(404, "Please enter a username or email");
-  if(!password) return response(404, "Please enter a password");
+  if(!id) return response(400, "Please enter a username or email");
+  if(!password) return response(400, "Please enter a password");
 
   // Checks if the id is an email or username
   const usingEmail = id.includes('@');
@@ -37,7 +37,7 @@ export const handler = async (event) => {
   console.log(users);
 
   if(!users["Count"])
-    return response(404, "User does not exist");
+    return response(401, "User does not exist");
       
   const responseUser = users['Items'][0];
 

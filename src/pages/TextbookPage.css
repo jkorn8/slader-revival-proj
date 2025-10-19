@@ -84,7 +84,7 @@ select {
     border-width: 2px;
     border-color: var(--border-light);
     color: var(--primary-blue);
-    padding-left: 20px; 
+    padding: 0 20px; 
     -moz-appearance: none; 
     -webkit-appearance: none; 
     appearance: none;
@@ -93,11 +93,54 @@ select {
 }
 
 select:hover {
-    border-color: var(--border-focus);
-    box-shadow: 0 0 0 3px var(--primary-blue-alpha-10);
+    background-color: var(--hover-overlay);
+    color: var(--accent-teal);
     cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: var(--border-focus);
 }
 
 select::-ms-expand { 
     display: none; 
-} 
+}
+
+/* Problem label hover effect */
+.problemLabel {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: var(--primary-blue);
+}
+
+.problemLabel:hover {
+    background-color: var(--hover-overlay);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--accent-teal);
+}
+
+.postSolutionButton {
+    background: var(--primary-blue);
+    color: var(--text-white);
+    border: none;
+    border-radius: 12px;
+    padding: 16px 32px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(79, 70, 229, 0.2);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.postSolutionButton:hover {
+    background-color: var(--primary-blue-hover);
+    color: var(--accent-teal-light);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(79, 70, 229, 0.2);
+}
